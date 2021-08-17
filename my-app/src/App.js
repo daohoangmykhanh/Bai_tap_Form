@@ -1,9 +1,12 @@
 import './App.css';
-import SinhVienComponent from './Component/sinhVienComponent';
+import BaiTapComponent from './Component/BaiTapComponent';
+import DanhSachComponent from './Component/DanhSachComponent';
 function App() {
   return (
     <div className="App">
-      <SinhVienComponent/>
+      <BaiTapComponent/>
+      <DanhSachComponent/>
+      
     </div>
   );
 }

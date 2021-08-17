@@ -27,7 +27,7 @@ export default class SinhVienComponent extends Component {
                                 <input className="form-control"/>
                             </div>
                         </div>
-                    <button className="btn btn-success">Thêm sinh viên </button>
+                    <button className="btn btn-success mt-3">Thêm sinh viên </button>
                     </div>
                 </div>
             </div>
