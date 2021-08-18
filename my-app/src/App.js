@@ -1,12 +1,10 @@
 import './App.css';
-import BaiTapComponent from './Component/BaiTapComponent';
-import DanhSachComponent from './Component/DanhSachComponent';
+import BaiTapComponent from './Component/BaiTapComponent'
 function App() {
   return (
     <div className="App">
       <BaiTapComponent/>
-      <DanhSachComponent/>
-      
+
     </div>
   );
 }
