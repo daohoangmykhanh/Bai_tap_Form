@@ -24,15 +24,33 @@ class SinhVienComponent extends Component {
         let newValues = {...this.state.values};
         newValues[name] = value;
 
+        let attrValue ='';
+        let regex;
+
+        if(event.target.getAttribute('typeEmail'))
+        {
+            attrValue = event.target.getAttribute('typeEmail');
+            regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        }
+
         let newErrors = {...this.state.errors};
         let messErrors = '';
         if (value.trim() === ''){
-            messErrors = name + 'không được bỏ trống!';
+            messErrors = name + ' không được bỏ trống!';
         }
+
+        if(regex){
+            if(attrValue  === 'email'){
+                if(!regex.test(value)){
+                    messErrors = name + ' phải đúng định dạng!'
+                }
+            }
+        }
+
         newErrors[name] = messErrors;
 
         this.setState({
-            value:newValues,
+            values:newValues,
             errors:newErrors
         })
 
@@ -41,6 +59,30 @@ class SinhVienComponent extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         console.log(this.state)
+        let valid = true;
+        for (let key in this.state.errors){
+            if(this.state.errors[key] !== ''){
+                valid = false;
+                break;
+            }
+        }
+        for(let key in this.state.values){
+            if(this.state.values[key] === ''){
+                valid = false;
+                break;
+            }
+        }
+
+        if(!valid){
+            alert('Dữ liệu không hợp lệ');
+            return;
+        }
+
+        const action = {
+            type : 'THEM_SINH_VIEN',
+            sinhVien: this.state.values
+        }
+        this.props.dispatch(action)
     }
 
     render() {
@@ -69,11 +111,11 @@ class SinhVienComponent extends Component {
                             </div>
                             <div className="form-group">
                                 <p>Email</p>
-                                <input className="form-control " name="email" onChange={this.handleChangeInput}/>
+                                <input typeEmail="email" className="form-control " name="email" onChange={this.handleChangeInput}/>
                                 <p className="text-danger">{this.state.errors.email}</p>
                             </div>
                         </div>
-                    <button className="btn btn-success mt-3" tyoe="submit">Thêm sinh viên </button>
+                    <button className="btn btn-success mt-3" type="submit">Thêm sinh viên </button>
                     </div>
                 </form>
             </div>
@@ -81,10 +123,4 @@ class SinhVienComponent extends Component {
     }
 }
 
-const mapStateToProps = (rootReducer) => {
-    return {
-        
-    }
-}
-
-export default connect(mapStateToProps)(SinhVienComponent)
+export default connect()(SinhVienComponent)

@@ -26,7 +26,13 @@ class DanhSachComponent extends Component {
                                     <td> {sinhVien.soDienThoai} </td>
                                     <td> {sinhVien.email} </td>
                                     <td> 
-                                        <button className="btn btn-outline-danger mr-4"> Xóa</button>
+                                        <button className="btn btn-outline-danger mr-4" onClick = {()=>{
+                                            const action = {
+                                                type:'XOA_SINH_VIEN',
+                                                maSV: sinhVien.maSV
+                                            }
+                                            this.props.dispatch(action);
+                                        }} > Xóa</button>
                                         <button className="btn btn-outline-primary">Chỉnh sửa</button>
                                     </td>
                                 </tr>
